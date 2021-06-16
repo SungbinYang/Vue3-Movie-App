@@ -1,4 +1,4 @@
-import { double } from './example';
+import { double, asyncFn } from './example';
 
 // 테스트 그룹
 describe('그룹1', () => {
@@ -63,25 +63,49 @@ describe('그룹2', () => {
     });
 });
 
-const userA = {
-    name: 'Sungbin',
-    age: 26
-}
-
-const userB = {
-    name: 'Neo',
-    age: 22
-}
-
-test('데이터가 일치해야 합니다', () => {
-    expect(userA.age).toBe(26);
-    expect(userA).toEqual({
+describe('Jest test', () => {
+    const userA = {
         name: 'Sungbin',
         age: 26
-    })
+    }
+
+    const userB = {
+        name: 'Neo',
+        age: 22
+    }
+
+    test('데이터가 일치해야 합니다', () => {
+        expect(userA.age).toBe(26);
+        expect(userA).toEqual({
+            name: 'Sungbin',
+            age: 26
+        })
+    }, 7000);
+
+    test('데이터가 일치하지 않아야 합니다.', () => {
+        expect(userB.name).not.toBe('Sungbin');
+        expect(userB).not.toEqual(userA);
+    }, 7000);
 });
 
-test('데이터가 일치하지 않아야 합니다.', () => {
-    expect(userB.name).not.toBe('Sungbin');
-    expect(userB).not.toEqual(userA);
-})
+describe('비동기 테스트', () => {
+    test('done', done => {
+        asyncFn().then(res => {
+            expect(res).toBe('Done!');
+            done();
+        });
+    }, 7000);
+
+    test('then', () => {
+        return asyncFn().then(res => {
+            expect(res).toBe('Done!');
+        });
+    }, 7000);
+
+    test('resolves', () => expect(asyncFn()).resolves.toBe('Done!'), 7000);
+
+    test('async/await', async() => {
+        const res = await asyncFn();
+        expect(res).toBe('Done!');
+    }, 7000);
+});
