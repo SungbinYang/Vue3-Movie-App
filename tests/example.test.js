@@ -1,5 +1,7 @@
 import * as example from './example';
 import axios from 'axios';
+import Example from './Example.vue';
+import { mount } from '@vue/test-utils';
 
 // 테스트 그룹
 // describe('그룹1', () => {
@@ -135,4 +137,17 @@ describe('비동기 테스트', () => {
         const title = await example.fetchMovieTitle();
         expect(title).toBe('Frozen ii')
     })
+})
+
+test('메세지를 변경합니다', async() => {
+    const wrapper = mount(Example);
+
+    // wrapper.vm === this
+    expect(wrapper.vm.msg).toBe('Hello Vue test utils!');
+    // wrapper.vm.msg = 'Hello Sungbin!';
+    await wrapper.setData({
+        msg: 'Hello Sungbin!'
+    })
+    expect(wrapper.vm.msg).toBe('Hello Sungbin!');
+    expect(wrapper.find('div').text()).toBe('Hello Sungbin!');
 })
