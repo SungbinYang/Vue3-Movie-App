@@ -3,5 +3,5 @@ import Parent from './Parent';
 
 test('Mount', () => {
     const wrapper = shallowMount(Parent);
-    expect(wrapper.html()).toBe('');
+    expect(wrapper.html()).not.toBe('');
 })
