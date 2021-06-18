@@ -12,14 +12,20 @@
           <div class="skeleton etc"></div>
         </div>
       </div>
-      <Loader :size="3" :z-index="9" fixed />
+      <Loader
+        :size="3"
+        :z-index="9"
+        fixed />
     </template>
-    <div v-else class="movie-details">
+    <div
+      v-else
+      class="movie-details">
       <div
         :style="{ backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})` }"
-        class="poster"
-      >
-        <Loader v-if="imageLoading" absolute />
+        class="poster">
+        <Loader
+          v-if="imageLoading"
+          absolute />
       </div>
       <div class="specs">
         <div class="title">
@@ -40,12 +46,10 @@
               v-for="{ Source: name, Value: score } in theMovie.Ratings"
               :key="name"
               :title="name"
-              class="rating"
-            >
+              class="rating">
               <img
                 :src="`https://raw.githubusercontent.com/SungbinYang/Vue.js/main/assets/${name}.png`"
-                :alt="name"
-              />
+                :alt="name" />
               <span>{{ score }}</span>
             </div>
           </div>
